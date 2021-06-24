@@ -43,5 +43,5 @@ def response_ids(r, page_no):
     return ids
 
 
-print("Checing rooms for %s (%s)" % (testuser.sisid, testuser.name))
+print("Checking rooms for %s (%s)" % (testuser.sisid, testuser.name))
 check_room_ids(testuser.sisid)
