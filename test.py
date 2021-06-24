@@ -24,7 +24,7 @@ def check_room_ids(user_id):
         all_ids.append(ids)
 
     flat = [item for subl in all_ids for item in subl]
-    print("Got %s rooms" % len(flat))
+    print("Got %s courses" % len(flat))
     if len(flat) != len(set(flat)):
         print("... but only %s distinct" % len(set(flat)))
 
@@ -43,5 +43,5 @@ def response_ids(r, page_no):
     return ids
 
 
-print("Checking rooms for %s (%s)" % (testuser.sisid, testuser.name))
+print("Checking courses for %s (%s)" % (testuser.sisid, testuser.name))
 check_room_ids(testuser.sisid)
