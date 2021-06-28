@@ -1,20 +1,19 @@
 #! /usr/bin/env python3
-import requests
 from collections import Counter
+from requests import Session
 from auth import CANVAS_BASE_URL, CANVAS_API_KEY, testuser
 
 def check_room_ids(user_id):
     """Run the test for the user with the given sis user_id."""
     url = CANVAS_BASE_URL + "api/v1/users/sis_user_id:" + user_id + "/courses"
-    headers = {'Authorization': CANVAS_API_KEY}
-
-    r = requests.get(url, params={'per_page': 50, 'include': ['sections']},
-                     headers=headers, timeout=3)
+    http = Session()
+    http.headers.update({'Authorization': CANVAS_API_KEY})
+    r = http.get(url, params={'per_page': 50, 'include': ['sections']}, timeout=3)
     ids = response_ids(r, 1)
     all_ids = [ids]
 
     while 'next' in r.links:
-        r = requests.get(r.links['next']['url'], headers=headers, timeout=3)
+        r = http.get(r.links['next']['url'], timeout=3)
         ids = response_ids(r, len(all_ids) + 1)
         for n, x in enumerate(all_ids):
             # This often happens
